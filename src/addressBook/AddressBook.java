@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 public class AddressBook {
+
     public Map<String, Address> mapOfAddresses;
 
     public AddressBook(Map<String, Address> mapOfAddresses){
@@ -31,8 +32,26 @@ public class AddressBook {
             two.append("; ");
             return two.toString();
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this==o)
+                return true;
+            if(o==null)
+                return false;
+            if (getClass()!=o.getClass())
+                return false;
+            Address other = (Address) o;
+            return (street.equals(other.street)) && (house == other.house) && (door == other.door);
+        }
+        @Override
+        public int hashCode() {
+            return street.hashCode();
+        }
+
         }
     public void add(String name, Address address) {
+        if(!mapOfAddresses.containsKey(name))
         mapOfAddresses.put(name, address);
     }
     public void delete(String name) {
@@ -77,5 +96,21 @@ public class AddressBook {
             one.append("; ");
         }
         return one.toString();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this==o)
+            return true;
+        if(o==null)
+            return false;
+        if (getClass()!=o.getClass())
+            return false;
+        AddressBook other = (AddressBook) o;
+        return mapOfAddresses.equals(other.mapOfAddresses);
+    }
+
+    @Override
+    public int hashCode() {
+        return mapOfAddresses.hashCode();
     }
 }
