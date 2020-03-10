@@ -3,9 +3,11 @@ package addressBook;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
+
 public class AddressBook {
 
-    public Map<String, Address> mapOfAddresses;
+    private Map<String, Address> mapOfAddresses;
 
     public AddressBook(Map<String, Address> mapOfAddresses){
         this.mapOfAddresses = mapOfAddresses;
@@ -21,6 +23,15 @@ public class AddressBook {
             this.house = house;
             this.door = door;
             }
+            public int getDoor(){
+            return door;
+            }
+            public int getHouse(){
+            return house;
+        }
+            public String getStreet(){
+            return street;
+        }
         @Override
         public String toString(){
             StringBuilder two = new StringBuilder();
@@ -46,25 +57,32 @@ public class AddressBook {
         }
         @Override
         public int hashCode() {
-            return street.hashCode();
+            return Objects.hash(street, house,door);
         }
 
         }
-    public void add(String name, Address address) {
+    public boolean add(String name, Address address) {
         if(!mapOfAddresses.containsKey(name))
-        mapOfAddresses.put(name, address);
+        { mapOfAddresses.put(name, address);
+        return true;}
+        else return false;
     }
-    public void delete(String name) {
-        mapOfAddresses.remove(name);
+    public boolean delete(String name) {
+        if(mapOfAddresses.containsKey(name))
+        {mapOfAddresses.remove(name);
+        return true;}
+        else return false;
     }
-    public void change(String name, Address address) {
+    public boolean change(String name, Address address) {
         if (mapOfAddresses.containsKey(name))
-            mapOfAddresses.put(name,address);
+        {mapOfAddresses.put(name,address);
+        return true;}
+        else return false;
     }
     public Address outputAddress(String name) {
         return mapOfAddresses.get(name);
     }
-    public List<String> listOfPeopleOne(String street) {
+    public List<String> listOfPeopleOnStreet(String street) {
         List<String> listOfPeople = new ArrayList<>();
         for (Map.Entry<String, Address> element: mapOfAddresses.entrySet()) {
             if (element.getValue().street.equals(street))
@@ -72,7 +90,7 @@ public class AddressBook {
         }
         return listOfPeople;
     }
-    public List<String> listOfPeopleTwo(String street, int house) {
+    public List<String> listOfPeopleInHouse(String street, int house) {
         List<String> listOfPeople = new ArrayList<>();
         for (Map.Entry<String, Address> element: mapOfAddresses.entrySet()) {
             if (element.getValue().street.equals(street) && element.getValue().house == house) {

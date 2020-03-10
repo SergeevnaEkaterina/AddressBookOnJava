@@ -15,6 +15,26 @@ import addressBook.AddressBook.Address;
 public class AddressBookTest {
 
     @Test
+    public void getDoor() {
+        Address address = new Address("Lenin", 200, 79);
+        Assert.assertEquals(79, address.getDoor());
+    }
+    @Test
+    public void getHouse() {
+        Address address = new Address("Lenin", 200, 79);
+        Assert.assertEquals(200, address.getDoor());
+    }
+    @Test
+    public void getStreet() {
+        Address address = new Address("Lenin", 200, 79);
+        Assert.assertEquals("Lenin", address.getStreet());
+    }
+
+
+
+
+
+    @Test
     public void add() {
         AddressBook book = new AddressBook(new HashMap<>());
         book.add("Pasha",new Address("Lenin",13,14));
@@ -24,6 +44,9 @@ public class AddressBookTest {
         a.put("Pasha",new Address("Lenin",13,14));
         AddressBook b = new AddressBook(a);
         Assert.assertEquals(book,b);
+
+        Assert.assertFalse(book.add("Pasha",new Address("Sennaya",12,147)));
+
     }
 
     @Test
@@ -36,6 +59,8 @@ public class AddressBookTest {
         AddressBook b = new AddressBook(a);
         book.delete("Katya");
         Assert.assertEquals(book,b);
+
+        Assert.assertFalse(book.delete("Ira"));
     }
 
     @Test
@@ -49,6 +74,8 @@ public class AddressBookTest {
         AddressBook b = new AddressBook(a);
         book.change("Pasha",new Address("Nevsky prospect",100,500));
         Assert.assertEquals(book,b);
+
+        Assert.assertFalse(book.change("Ira",new Address ("Kantemorovskaya",7,586)));
 
     }
 
@@ -68,7 +95,7 @@ public class AddressBookTest {
         book.add("Pasha",new Address("Lenin",13,14));
         book.add("Lesha",new Address("Sennaya",1,8));
         book.add("Lena",new Address("Lenin",1,4));
-        Assert.assertEquals(book.listOfPeopleOne("Lenin"),Arrays.asList("Lena","Pasha"));
+        Assert.assertEquals(book.listOfPeopleOnStreet("Lenin"),Arrays.asList("Lena","Pasha"));
 
     }
 
@@ -79,6 +106,6 @@ public class AddressBookTest {
         book.add("Pasha",new Address("Lenin",13,14));
         book.add("Vitya",new Address("Lenin",13,8));
         book.add("Lena",new Address("Lenin",1,4));
-        Assert.assertEquals(book.listOfPeopleTwo("Lenin",13),Arrays.asList("Vitya","Pasha"));
+        Assert.assertEquals(book.listOfPeopleInHouse("Lenin",13),Arrays.asList("Vitya","Pasha"));
     }
 }

@@ -12,9 +12,9 @@ public class Main {
         book.add("Denis",new Address("Lenin",13,9));
         System.out.println(book);
 
-        System.out.println(book.listOfPeopleOne("Toreza"));
+        System.out.println(book.listOfPeopleOnStreet("Toreza"));
 
-        System.out.println(book.listOfPeopleTwo("Lenin",13));
+        System.out.println(book.listOfPeopleInHouse("Lenin",13));
 
         book.delete("Katya");
         System.out.println(book);
